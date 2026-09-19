@@ -31,6 +31,8 @@ endif
 
 # Allow sharing configuration between design and testbench via `include`:
 COMPILE_ARGS 		+= -I$(SRC_DIR)
+# simulation does not need them.
+COMPILE_ARGS += -gno-specify
 
 # Include the testbench sources:
 VERILOG_SOURCES += $(PWD)/tb.v
