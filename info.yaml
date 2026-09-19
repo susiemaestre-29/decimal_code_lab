@@ -1,56 +1,43 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
-
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
-
-  # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
-
-  # List your project's source files here.
-  # Source files must be in ./src and you must list each source file separately, one per line.
-  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  title: "Decimal Code Lab"
+  author: "Susie Maestre"
+  discord: ""
+  description: "Decimal <-> BCD/2421/5421/84-2-1/7421/Excess-3/Gray/cyclic-Gray converter with 9's complement, decade counter, code museum, 7-segment view and binary-to-BCD."
+  language: "Verilog"
+  clock_hz: 10000000
+  tiles: "1x1"          # raise to "1x2" if the flow reports the design does not fit
+  top_module: "tt_um_decimal_code_lab"
   source_files:
     - "project.v"
 
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+# Pin names. uo[7:0] depends on VIEW (ui[7]): code view / 7-segment view.
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "D0 data nibble"
+  ui[1]: "D1 data nibble"
+  ui[2]: "D2 data nibble"
+  ui[3]: "D3 data nibble"
+  ui[4]: "M0 code select"
+  ui[5]: "M1 code select"
+  ui[6]: "M2 code select"
+  ui[7]: "VIEW 0=code view, 1=7-segment view"
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "nibble0 / seg a"
+  uo[1]: "nibble1 / seg b"
+  uo[2]: "nibble2 / seg c"
+  uo[3]: "nibble3 / seg d"
+  uo[4]: "aux0 / seg e"
+  uo[5]: "aux1 / seg f"
+  uo[6]: "aux2 / seg g"
+  uo[7]: "multi-bit-flip flag / decimal point = invalid"
 
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "F0 function"
+  uio[1]: "F1 function"
+  uio[2]: "F2 function"
+  uio[3]: "SPD0 step rate"
+  uio[4]: "SPD1 step rate"
+  uio[5]: "NINES 9's complement / count down"
+  uio[6]: "selfcomp (output): selected code is self-complementing"
+  uio[7]: "invalid (output)"
 
-# Do not change!
 yaml_version: 6
