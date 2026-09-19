@@ -15,16 +15,13 @@ VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 
 else
 
-# Gate-level simulation
+# Gate-level simulation. The netlist is copied in by the GDS workflow as gate_level_netlist.v;
+# the cell-model files under $(PDK_ROOT) are not present on the CI runner, so none are listed here.
 SIM_BUILD = sim_build/gl
 COMPILE_ARGS += -DGL_TEST
 COMPILE_ARGS += -DFUNCTIONAL
-COMPILE_ARGS += -DUSE_POWER_PINS
 COMPILE_ARGS += -DSIM
-COMPILE_ARGS += -DUNIT_DELAY=\#1
 
-VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
-VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 
 endif
@@ -34,8 +31,7 @@ VERILOG_SOURCES += $(PWD)/tb.v
 
 TOPLEVEL = tb
 
-# cocotb 2.x reads COCOTB_TEST_MODULES; cocotb 1.x reads MODULE
+# List test modules (no .py suffix). For cocotb 1.x use MODULE = test instead.
 COCOTB_TEST_MODULES = test
-MODULE = test
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
