@@ -15,13 +15,15 @@ VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 
 else
 
-# Gate-level simulation. The netlist is copied in by the GDS workflow as gate_level_netlist.v;
-# the cell-model files under $(PDK_ROOT) are not present on the CI runner, so none are listed here.
+# Gate-level simulation. The netlist is copied in by the GDS workflow as gate_level_netlist.v.
+# It is built from IHP SG13G2 cells (sg13g2_*), so the standard-cell models are needed too;
+# the wildcard finds them wherever the runner's PDK folder is called.
 SIM_BUILD = sim_build/gl
 COMPILE_ARGS += -DGL_TEST
 COMPILE_ARGS += -DFUNCTIONAL
 COMPILE_ARGS += -DSIM
 
+VERILOG_SOURCES += $(wildcard $(PDK_ROOT)/*/libs.ref/sg13g2_stdcell/verilog/sg13g2_stdcell.v)
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 
 endif
