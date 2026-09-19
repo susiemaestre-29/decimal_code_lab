@@ -1,7 +1,8 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
-/* Standard Tiny Tapeout testbench wrapper: cocotb drives these signals. */
+/* Testbench wrapper: cocotb drives these signals.
+ * The gate-level netlist for this flow has no VPWR/VGND ports, so no power pins are connected. */
 module tb ();
 
   initial begin
@@ -18,16 +19,8 @@ module tb ();
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
-`ifdef GL_TEST
-  wire VPWR = 1'b1;
-  wire VGND = 1'b0;
-`endif
 
   tt_um_decimal_code_lab user_project (
-`ifdef GL_TEST
-      .VPWR(VPWR),
-      .VGND(VGND),
-`endif
       .ui_in  (ui_in),
       .uo_out (uo_out),
       .uio_in (uio_in),
